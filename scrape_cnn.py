@@ -17,19 +17,18 @@ header = {
 
 try:
     response = session.get(url, headers=header).html
+    title = response.find('h1.headline__text')[0].text
+    author = response.find('span.byline__name')[0].text
+    last_updated = response.find('div.timestamp')[0].text
+    content = response.find('p.paragraph.inline-placeholder')
+
+
+    print(f"Article Title: {title}")
+    print(f"Updated Date: {last_updated}")
+    print(f"Author: {author}")
+    print()
+
+    for paragraph in content:
+        print(paragraph.text)
 except:
     print("Invalid url")
-
-title = response.find('h1.headline__text')[0].text
-author = response.find('span.byline__name')[0].text
-last_updated = response.find('div.timestamp')[0].text
-content = response.find('p.paragraph.inline-placeholder')
-
-
-print(f"Article Title: {title}")
-print(f"Updated Date: {last_updated}")
-print(f"Author: {author}")
-print()
-
-for paragraph in content:
-    print(paragraph.text)
